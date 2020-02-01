@@ -1,0 +1,1641 @@
+Bootstrap整理
+CSS 文件
+将 Bootstrap 的 CSS 文件以 <link> 标签的形式添加到 <head> 标签中，并放置在所有其它样式表之前就行了。
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+JS 文件
+Bootstrap 所提供的许多组件都依赖 JavaScript 才能运行。具体来说，这些组件都依赖 jQuery、Popper.js 以及我们自己的 JavaScript 插件。将以下 <script> 标签放到页面尾部且在 </body> 标签之前即可起作用。他们之间的顺序是： jQuery 必须排在第一位，然后是 Popper.js，最后是我们的 JavaScript 插件。
+我们使用的是 jQuery 的 slim（瘦身） 版本，完整版也是支持的。
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+是否想知道哪些组件明确的依赖 jQuery、我们自己的 JS 插件以及 Popper.js？单击下面的“显示依赖 JavaScript 的组件列表”链接了解详情。如果你对一般的页面结构还不了解，请继续了解示例页面模板。
+Bootstrap 所提供的 bootstrap.bundle.js 和 bootstrap.bundle.min.js 文件中包含了 Popper，但不包含 jQuery。有关 Bootstrap 中包含了哪些内容，请参阅 内容 章节。
+最基本的模板
+请确保你的页面遵循了最新的设计和开发标准。也就是说，使用 HTML5 doctype 并包含 viewport meta 标签以实现正确的响应式行为。把这些东西攒在一起，你的页面应该是这样的：
+<!doctype html><html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body></html>
+
+重要的全局样式
+Bootstrap 使用了一些重要的全局样式和设置，你在使用它们的时候要留意，这些全局样式和设置几乎都是专门针对跨浏览器样式的 标准化（normalization） 为目标的。下面就让我们一起来了解吧。
+HTML5 doctype
+Bootstrap 要求使用 HTML5 doctype。如果不使用，你会看到一些奇怪的不完整的样式，但使用之后就不会导致任何错误了。
+<!doctype html><html lang="en">
+  ...</html>
+
+响应式 meta 标签
+Bootstrap 天生就是 移动设备优先 的，依照这一策略，我们首先为移动设备优化代码，然后根据需要，基于 CSS 媒体查询来对组件进行缩小或放大。为了确保所有设备能够正确渲染和触摸缩放，请将响应式 viewport meta 标签 添加到 <head> 标签中。
+示例：
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+Box-sizing
+为了能够在 CSS 中直接调整尺寸，我们将全局的 box-sizing 从 content-box 切换为 border-box。这就确保了 padding 不会影响元素最终的宽度计算，但是这可能会导致第三方软件出现问题，例如 Google 地图和 Google 自定义搜索引擎。
+虽然需要覆盖这一设置的情况极少，但是需要重置时，请使用以下代码：
+.selector-for-some-widget {
+  box-sizing: content-box;}
+
+
+
+
+Reboot
+为了提升跨浏览的渲染效果，我们使用了 Reboot 用以修正跨浏览器和设备的不一致性，并且对常用 HTML 元素设置了我们认为最合适的预设样式。
+概述
+部署引导项目的组件和选项，包括包装容器、强大的网格系统、灵活的媒体对象和响应的实用工具类。
+容器
+容器是Bootstrap中最基本的布局元素，在使用默认网格系统时是必需的。容器用于包含、填充和（有时）将内容居中。虽然可以嵌套容器，但大多数布局不需要嵌套容器。
+Bootstrap有三个不同的容器：
+.container它在每个响应断点处设置最大宽度
+.容器流体，宽度：所有断点处100%
+.container-{breakpoint} 宽度：100%，直到指定的断点
+下表说明了每个容器的最大宽度与每个断点上的原始.container和.container流体的比较。
+在我们的网格示例中查看它们并进行比较。
+                      超小型        小型     中等型     大型       超大型
+
+
+
+
+一体式
+我们的default.container类是一个响应的、固定宽度的容器，这意味着它在每个断点处的最大宽度都会发生变化。
+示例:
+<div class="container">
+  <!-- Content here --></div>
+
+液体
+使用.container流体作为全宽容器，覆盖整个视区宽度。
+<div class="container-fluid">
+  ...</div>
+
+反应敏捷的
+
+响应容器是Bootstrap v4.4中的新功能。它们允许您指定一个100%宽度的类，直到到达指定的断点，然后我们为每个较高的断点应用最大宽度。例如，.container sm在到达sm断点之前是100%宽的，在这里它将随着md、lg和xl而放大。
+
+示例:
+<div class="container-sm">100% wide until small breakpoint</div>
+<div class="container-md">100% wide until medium breakpoint</div>
+<div class="container-lg">100% wide until large breakpoint</div>
+<div class="container-xl">100% wide until extra large breakpoint</div>
+
+
+响应断点
+由于Bootstrap首先被开发为移动的，我们使用少量的媒体查询来为我们的布局和接口创建合理的断点。这些断点主要基于最小的视窗宽度，并允许我们随着视窗的变化放大元素。Bootstrap主要在布局、网格系统和组件的源Sass文件中使用以下媒体查询范围或断点。
+// Extra small devices (portrait phones, less than 576px)// No media query for `xs` since this is the default in Bootstrap
+// Small devices (landscape phones, 576px and up)@media (min-width: 576px) { ... }
+// Medium devices (tablets, 768px and up)@media (min-width: 768px) { ... }
+// Large devices (desktops, 992px and up)@media (min-width: 992px) { ... }
+// Extra large devices (large desktops, 1200px and up)@media (min-width: 1200px) { ... }
+由于我们在SASS中编写我们的源CSS，我们所有的媒体查询都可以通过SASS MIXIN获得：
+// No media query necessary for xs breakpoint as it's effectively `@media (min-width: 0) { ... }`
+@include media-breakpoint-up(sm) { ... }
+@include media-breakpoint-up(md) { ... }
+@include media-breakpoint-up(lg) { ... }
+@include media-breakpoint-up(xl) { ... }
+// Example: Hide starting at `min-width: 0`, and then show at the `sm` breakpoint.custom-class {
+  display: none;}@include media-breakpoint-up(sm) {
+  .custom-class {
+    display: block;
+  }}
+
+我们偶尔会使用其他方向（给定屏幕大小或更小）的媒体查询：
+// Extra small devices (portrait phones, less than 576px)@media (max-width: 575.98px) { ... }
+// Small devices (landscape phones, less than 768px)@media (max-width: 767.98px) { ... }
+// Medium devices (tablets, less than 992px)@media (max-width: 991.98px) { ... }
+// Large devices (desktops, less than 1200px)@media (max-width: 1199.98px) { ... }
+// Extra large devices (large desktops)// No media query since the extra-large breakpoint has no upper bound on its width
+请注意，由于浏览器当前不支持范围上下文查询，我们通过使用具有更高精度的值进行这些比较来解决最小和最大前缀以及具有部分宽度（例如，在高dpi设备的某些条件下可能出现）的视口的限制。
+再次，这些媒体查询也可通过SAS-MIXIN获得：
+@include media-breakpoint-down(xs) { ... }
+@include media-breakpoint-down(sm) { ... }
+@include media-breakpoint-down(md) { ... }
+@include media-breakpoint-down(lg) { ... }
+// No media query necessary for xl breakpoint as it has no upper bound on its width
+// Example: Style from medium breakpoint and down@include media-breakpoint-down(md) {
+  .custom-class {
+    display: block;
+  }}
+
+
+
+
+
+
+
+也有媒体查询和混合器，用于使用最小和最大断点宽度瞄准单个屏幕尺寸段。
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) { ... }
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) { ... }
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) { ... }
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) { ... }
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+
+类似地，媒体查询可能跨越多个断点宽度：
+// Example// Apply styles starting from medium devices and up to extra large devices
+@media (min-width: 768px) and (max-width: 1199.98px) { ... }
+
+针对相同屏幕尺寸范围的SAS-MIXIN将是：
+@include media-breakpoint-between(md, xl) { ... }
+
+索引
+
+几个Bootstrap组件使用 索引，CSS属性通过提供第三轴来安排内容来帮助控制布局。我们在Bootstrap中使用了一个默认的z-index比例，它被设计用来正确地对导航、工具提示和弹出窗口、modals等进行分层。
+这些较高的值从任意数字开始，足够高和特定，理想情况下可以避免冲突。我们需要在分层组件的工具提示、弹出窗口、导航栏、下拉列表和模式中设置一组标准的这些，这样我们就可以在行为上保持合理的一致性。我们没有理由不使用100+或500+。
+我们不鼓励定制这些单独的价值观；如果你改变了其中一个，你可能需要全部改变。
+
+示例:
+
+$zindex-dropdown:          1000 !default;
+$zindex-sticky:            1020 !default;
+$zindex-fixed:             1030 !default;
+$zindex-modal-backdrop:    1040 !default;
+$zindex-modal:             1050 !default;
+$zindex-popover:           1060 !default;
+$zindex-tooltip:           1070 !default;
+
+
+为了处理组件内的重叠边界（例如，输入组中的按钮和输入），我们在默认状态、悬停状态和活动状态下使用1、2和3的低位单位数z索引值。在hover/focus/active中，我们使用更高的z-index值将特定元素置于最前面，以显示其在同级元素上的边界。
+
+网格系统
+借助十二列系统，五个默认响应层，Sass变量和mixin以及数十个预定义类，使用我们强大的移动优先Flexbox网格来构建所有形状和大小的布局。
+怎么运行的
+Bootstrap的网格系统使用一系列容器，行和列来布局和对齐内容。它是使用flexbox构建的，具有完全的响应能力。下面是一个示例，并深入研究了网格如何组合在一起。
+示例:
+
+代码：
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+  </div></div>
+
+
+
+上面的示例使用我们预定义的网格类在小型、中型、大型和特大型设备上创建三个等宽列。这些列在页面中以parent.container居中。
+
+
+
+
+分解它，它的工作原理如下：
+容器提供了一种将网站内容居中并水平放置的方法。使用.container作为响应像素宽度，或.container fluid作为宽度：100%覆盖所有视区和设备大小。
+行是列的包装。每列都有用于控制它们之间的空间的水平填充（称为边沟）。然后在具有负边距的行上抵消此填充。这样，您的列中的所有内容在视觉上都在左侧对齐。
+在网格布局中，内容必须放在列中，并且只有列可以是行的直接子级。
+
+由于flexbox，没有指定宽度的网格列将自动布局为等宽列。例如，.col sm的四个实例将自动从小断点向上宽25%。有关更多示例，请参见“自动布局列”部分。
+列类指示每行可能使用的12列中要使用的列数。所以，如果需要三列等宽的列，可以使用.col-4。
+列宽是按百分比设置的，因此它们总是相对于其父元素流动和调整大小。
+
+列具有水平填充以在单个列之间创建檐沟，但是，您可以从行中移除边距，从列中移除填充，在.row上没有檐沟。
+要使网格响应，有五个网格断点，每个断点对应一个：所有断点（超小断点）、小断点、中断点、大断点和超大断点。
+
+网格断点基于最小宽度的媒体查询，这意味着它们适用于该断点及其上的所有断点（例如，col-sm-4适用于小型、中型、大型和特大型设备，但不适用于第一个xs断点）。
+
+
+可以使用预定义的网格类（如COL-4）或SAS-MIXIN来实现更多语义标记。
+注意flexbox的局限性和缺陷，比如不能使用一些HTML元素作为flex容器。
+网格选项
+引导程序使用ems或rems来定义大多数大小，而pxs则用于网格断点和容器宽度。这是因为视区宽度是以像素为单位的，并且不随字体大小而改变。
+查看引导网格系统的各个方面如何通过一个方便的表跨多个设备工作。
+                          超小型      小型     中等型      大型       超大型
+
+
+自动布局列
+使用特定于断点的列类，无需显式编号的类（如.col-sm-6），即可轻松调整列大小。
+等宽
+例如，这里有两个网格布局，适用于从xs到xl的每个设备和视区。为每个断点添加任意数量的无单元类，每个列的宽度都相同。
+示例：
+
+
+代码:
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      1 of 2
+    </div>
+    <div class="col">
+      2 of 2
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      1 of 3
+    </div>
+    <div class="col">
+      2 of 3
+    </div>
+    <div class="col">
+      3 of 3
+    </div>
+  </div></div>
+
+等宽多行
+通过在希望列打断为新行的位置插入.w-100，创建跨多行的等宽列。通过混合W-100与一些响应显示实用程序来实现中断响应。
+
+有一个Safari flexbox错误阻止了它在没有明确的flex基础或边界的情况下工作。对于较旧的浏览器版本有一些解决方法，但是如果目标浏览器不属于错误版本，就不必使用这些方法。
+
+代码:
+<div class="container">
+  <div class="row">
+    <div class="col">col</div>
+    <div class="col">col</div>
+    <div class="w-100"></div>
+    <div class="col">col</div>
+    <div class="col">col</div>
+  </div></div>
+设置一列宽度
+flexbox网格列的自动布局还意味着您可以设置一列的宽度，并让同级列自动调整其周围的大小。可以使用预定义的网格类（如下所示）、网格混合或内联宽度。请注意，其他列的大小将与中心列的宽度无关。
+示例:
+第1页，共3页
+
+代码:
+<div class="container">
+  <div class="row">
+    <div class="col">
+      1 of 3
+    </div>
+    <div class="col-6">
+      2 of 3 (wider)
+    </div>
+    <div class="col">
+      3 of 3
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      1 of 3
+    </div>
+    <div class="col-5">
+      2 of 3 (wider)
+    </div>
+    <div class="col">
+      3 of 3
+    </div>
+  </div></div>
+
+可变宽度内容
+使用col-{breakpoint}-auto类根据列内容的自然宽度调整列的大小。
+
+示例：
+
+
+代码:
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-2">
+      1 of 3
+    </div>
+    <div class="col-md-auto">
+      Variable width content
+    </div>
+    <div class="col col-lg-2">
+      3 of 3
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      1 of 3
+    </div>
+    <div class="col-md-auto">
+      Variable width content
+    </div>
+    <div class="col col-lg-2">
+      3 of 3
+    </div>
+  </div></div>
+
+响应类
+Bootstrap的网格包含五层预定义类，用于构建复杂的响应式布局。在您认为合适的超小型、小型、中型、大型或超大型设备上自定义列的大小。
+所有断点
+对于从最小设备到最大设备都相同的网格，请使用.col和.col-*类。当您需要一个特别大小的列时，请指定一个带编号的类；否则，请随意使用.col。
+示例：
+
+代码:
+<div class="container">
+  <div class="row">
+    <div class="col">col</div>
+    <div class="col">col</div>
+    <div class="col">col</div>
+    <div class="col">col</div>
+  </div>
+  <div class="row">
+    <div class="col-8">col-8</div>
+    <div class="col-4">col-4</div>
+  </div></div>
+
+堆叠到水平
+
+使用一组.col sm-*类，可以创建一个基本的网格系统，该系统从堆栈开始，在小断点（sm）处变为水平。
+
+示例：
+
+
+
+代码：
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">col-sm-8</div>
+    <div class="col-sm-4">col-sm-4</div>
+  </div>
+  <div class="row">
+    <div class="col-sm">col-sm</div>
+    <div class="col-sm">col-sm</div>
+    <div class="col-sm">col-sm</div>
+  </div></div>
+
+Mix and match
+不希望您的列简单地堆叠在一些网格层中？根据需要为每个层使用不同类的组合。
+请参阅下面的示例，以更好地了解它是如何工作的。
+示例:
+
+代码：
+<div class="container">
+  <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+  <div class="row">
+    <div class="col-md-8">.col-md-8</div>
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+  </div>
+
+  <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+  <div class="row">
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+    <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+  </div>
+
+  <!-- Columns are always 50% wide, on mobile and desktop -->
+  <div class="row">
+    <div class="col-6">.col-6</div>
+    <div class="col-6">.col-6</div>
+  </div></div>
+
+Gutters 
+Gutters 可以通过断点特定的填充和负边距实用程序类进行响应性调整。若要更改给定行中的檐沟，请将.row上的负边距实用程序与.cols上的匹配填充实用程序配对。可能还需要调整.container或.container fluid父项以避免不需要的溢出，请再次使用匹配的填充实用程序。
+下面是一个在大型（lg）断点及以上自定义引导网格的示例。我们用.px-lg-5增加了.col的填充，用父.row上的.mx-lg-n5抵消，然后用.px-lg-5调整.container包装。
+示例：
+
+代码：
+<div class="container px-lg-5">
+  <div class="row mx-lg-n5">
+    <div class="col py-3 px-lg-5 border bg-light">Custom column padding</div>
+    <div class="col py-3 px-lg-5 border bg-light">Custom column padding</div>
+  </div></div>
+
+行列
+使用responsive.row cols-*类快速设置最适合呈现内容和布局的列数。normal.col-*类适用于单个列（例如col-md-4），而row columns类则作为快捷方式设置在parent.row上。
+使用这些行列类可以快速创建基本网格布局或控制卡布局。
+示例：
+
+
+代码：
+<div class="container">
+  <div class="row row-cols-2">
+    <div class="col">Column</div>
+    <div class="col">Column</div>
+    <div class="col">Column</div>
+    <div class="col">Column</div>
+  </div></div>
+
+示例：
+
+
+
+
+
+代码：
+<div class="container">
+  <div class="row row-cols-3">
+    <div class="col">Column</div>
+    <div class="col">Column</div>
+    <div class="col">Column</div>
+    <div class="col">Column</div>
+  </div></div>
+示例：
+
+
+
+代码:
+<div class="container">
+  <div class="row row-cols-4">
+    <div class="col">Column</div>
+    <div class="col">Column</div>
+    <div class="col">Column</div>
+    <div class="col">Column</div>
+  </div></div>
+
+
+
+示例：
+
+
+代码：
+<div class="container">
+  <div class="row row-cols-4">
+    <div class="col">Column</div>
+    <div class="col">Column</div>
+    <div class="col-6">Column</div>
+    <div class="col">Column</div>
+  </div></div>
+
+示例：
+
+
+代码：
+<div class="container">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+    <div class="col">Column</div>
+    <div class="col">Column</div>
+    <div class="col">Column</div>
+    <div class="col">Column</div>
+  </div></div>
+
+示例：
+你也可以使用伴随的Sas-Mixin，Ro-CulsSe（）：
+.element {
+  // Three columns to start
+  @include row-cols(3);
+
+  // Five columns from medium breakpoint up
+  @include media-breakpoint-up(md) {
+    @include row-cols(5);
+  }}
+
+对齐
+
+使用flexbox对齐实用程序垂直和水平对齐列。当flex容器的最小高度如下所示时，Internet Explorer 10-11不支持flex项的垂直对齐。有关更多详细信息，请参见Flexbugs
+
+
+
+
+垂直对齐
+三列之一
+
+<div class="container">
+  <div class="row align-items-start">
+    <div class="col">
+      One of three columns
+    </div>
+    <div class="col">
+      One of three columns
+    </div>
+    <div class="col">
+      One of three columns
+    </div>
+  </div>
+  <div class="row align-items-center">
+    <div class="col">
+      One of three columns
+    </div>
+    <div class="col">
+      One of three columns
+    </div>
+    <div class="col">
+      One of three columns
+    </div>
+  </div>
+  <div class="row align-items-end">
+    <div class="col">
+      One of three columns
+    </div>
+    <div class="col">
+      One of three columns
+    </div>
+    <div class="col">
+      One of three columns
+    </div>
+  </div></div>
+
+
+示例：
+代码:<div class="container">
+  <div class="row">
+    <div class="col align-self-start">
+      One of three columns
+    </div>
+    <div class="col align-self-center">
+      One of three columns
+    </div>
+    <div class="col align-self-end">
+      One of three columns
+    </div>
+  </div></div>
+水平对齐
+
+
+代码：
+<div class="container">
+  <div class="row justify-content-start">
+    <div class="col-4">
+      One of two columns
+    </div>
+    <div class="col-4">
+      One of two columns
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-4">
+      One of two columns
+    </div>
+    <div class="col-4">
+      One of two columns
+    </div>
+  </div>
+  <div class="row justify-content-end">
+    <div class="col-4">
+      One of two columns
+    </div>
+    <div class="col-4">
+      One of two columns
+    </div>
+  </div>
+  <div class="row justify-content-around">
+    <div class="col-4">
+      One of two columns
+    </div>
+    <div class="col-4">
+      One of two columns
+    </div>
+  </div>
+  <div class="row justify-content-between">
+    <div class="col-4">
+      One of two columns
+    </div>
+    <div class="col-4">
+      One of two columns
+    </div>
+  </div></div>
+
+No gutters
+在我们预定义的网格类中，列之间的gutters可以用.no gutters删除。这将删除.row中的负边距和所有直接子列中的水平填充。
+下面是创建这些样式的源代码。请注意，列重写的作用域仅限于第一个子列，并通过属性选择器作为目标。虽然这会生成一个更具体的选择器，但列填充仍然可以使用间距实用程序进一步自定义。
+需要边到边的设计吗？底下父容器或容器液体
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  > .col,
+  > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }}
+
+实际上，这就是它的样子。注意，您可以继续将其与所有其他预定义的网格类（包括列宽、响应层、重新排序等）一起使用。
+
+。代码：
+<div class="row no-gutters">
+  <div class="col-sm-6 col-md-8">.col-sm-6 .col-md-8</div>
+  <div class="col-6 col-md-4">.col-6 .col-md-4</div></div>
+
+列换行
+如果在一行中放置的列超过12列，则每组额外的列将作为一个单元包装到新行上。
+
+代码：
+<div class="container">
+  <div class="row">
+    <div class="col-9">.col-9</div>
+    <div class="col-4">.col-4<br>Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit.</div>
+    <div class="col-6">.col-6<br>Subsequent columns continue along the new line.</div>
+  </div></div>
+
+分栏符
+在flexbox中将列拆分为新行需要一个小技巧：添加一个宽度为100%的元素，无论您想在何处将列拆分为新行。通常这是通过多行来完成的，但不是每个实现方法都能解释这一点。
+
+代码：
+<div class="container">
+  <div class="row">
+    <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
+    <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
+
+    <!-- Force next columns to break to new line -->
+    <div class="w-100"></div>
+
+    <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
+    <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>
+  </div></div>
+
+您还可以使用我们的响应显示实用程序在特定断点应用此中断。
+
+代码：
+<div class="container">
+  <div class="row">
+    <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
+    <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
+
+    <!-- Force next columns to break to new line at md breakpoint and up -->
+    <div class="w-100 d-none d-md-block"></div>
+
+    <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
+    <div class="col-6 col-sm-4">.col-6 .col-sm-4</div>
+  </div></div>
+
+重新排序
+order类
+使用.order-类来控制内容的视觉顺序。这些类是响应的，因此可以通过断点设置顺序（例如，order-1.order-md-2）。包括对所有五个网格层的1到12的支持。
+示例：
+
+代码：
+<div class="container">
+  <div class="row">
+    <div class="col">
+      First in DOM, no order applied
+    </div>
+    <div class="col order-12">
+      Second in DOM, with a larger order
+    </div>
+    <div class="col order-1">
+      Third in DOM, with an order of 1
+    </div>
+  </div></div>
+还有响应的.order first和.order last类，它们分别通过应用order:-1和order:13（order:$columns+1）来更改元素的顺序。这些类还可以根据需要与带编号的.order-*类混合使用。
+示例：
+
+代码：<div class="container">
+  <div class="row">
+    <div class="col order-last">
+      First in DOM, ordered last
+    </div>
+    <div class="col">
+      Second in DOM, unordered
+    </div>
+    <div class="col order-first">
+      Third in DOM, ordered first
+    </div>
+  </div></div>
+偏移列
+您可以通过两种方式偏移网格列：响应的偏移网格类和边距实用程序。网格类的大小与列匹配，而边距对于偏移宽度可变的快速布局更有用。
+偏移类
+使用.offset md-*类将列向右移动。这些类将列的左边距增加*列。例如，.offset-md-4将.col-md-4移到四列上。
+示例：
+
+代码：<div class="container">
+  <div class="row">
+    <div class="col-md-4">.col-md-4</div>
+    <div class="col-md-4 offset-md-4">.col-md-4 .offset-md-4</div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 offset-md-3">.col-md-3 .offset-md-3</div>
+    <div class="col-md-3 offset-md-3">.col-md-3 .offset-md-3</div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">.col-md-6 .offset-md-3</div>
+  </div></div>
+除了在响应断点处清除列之外，还可能需要重置偏移量。请参见网格示例中的实际操作。
+示例：
+
+代码：<div class="container">
+  <div class="row">
+    <div class="col-sm-5 col-md-6">.col-sm-5 .col-md-6</div>
+    <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">.col-sm-5 .offset-sm-2 .col-md-6 .offset-md-0</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-md-5 col-lg-6">.col-sm-6 .col-md-5 .col-lg-6</div>
+    <div class="col-sm-6 col-md-5 offset-md-2 col-lg-6 offset-lg-0">.col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0</div>
+  </div></div>
+
+边际效用
+通过在v4中移动到flexbox，您可以使用诸如.mr auto之类的页边距实用程序来强制同级列彼此远离。
+示例：
+
+
+
+
+代码：<div class="container">
+  <div class="row">
+    <div class="col-md-4">.col-md-4</div>
+    <div class="col-md-4 ml-auto">.col-md-4 .ml-auto</div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 ml-md-auto">.col-md-3 .ml-md-auto</div>
+    <div class="col-md-3 ml-md-auto">.col-md-3 .ml-md-auto</div>
+  </div>
+  <div class="row">
+    <div class="col-auto mr-auto">.col-auto .mr-auto</div>
+    <div class="col-auto">.col-auto</div>
+  </div></div>
+嵌套
+若要使用默认网格嵌套内容，请在现有的COL SM *列中添加一个新的.ROW和一组.COM SM *列。嵌套行应包含一组总计不超过12个的列（不要求使用所有12个可用列）。
+示例：
+
+代码：
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      Level 1: .col-sm-9
+      <div class="row">
+        <div class="col-8 col-sm-6">
+          Level 2: .col-8 .col-sm-6
+        </div>
+        <div class="col-4 col-sm-6">
+          Level 2: .col-4 .col-sm-6
+        </div>
+      </div>
+    </div>
+  </div></div>
+
+Sass mixins
+当使用Bootstrap的源SASS文件时，您可以选择使用SASS变量和MIXIN来创建自定义的、语义的和响应的页面布局。我们预定义的网格类使用这些相同的变量和MIXIN，为快速响应的布局提供了一套随时可用的类。
+
+变量
+变量和映射决定了开始浮动列的列数、间距宽度和媒体查询点。我们使用这些来生成上面所记录的预定义的网格类，以及下面列出的自定义MIXIN。
+
+代码示例：
+$grid-columns:      12;$grid-gutter-width: 30px;
+$grid-breakpoints: (
+  // Extra small screen / phone
+  xs: 0,
+  // Small screen / phone
+  sm: 576px,
+  // Medium screen / tablet
+  md: 768px,
+  // Large screen / desktop
+  lg: 992px,
+  // Extra large screen / wide desktop
+  xl: 1200px);
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px);
+
+Mixins
+MIXIN与网格变量一起使用，以生成单个网格列的语义CSS。
+
+代码示例：
+// Creates a wrapper for a series of columns@include make-row();
+// Make the element grid-ready (applying everything but the width)@include make-col-ready();@include make-col($size, $columns: $grid-columns);
+// Get fancy by offsetting, or changing the sort order@include make-col-offset($size, $columns: $grid-columns);
+
+示例用法
+您可以将变量修改为自己的自定义值，或者只使用MIXIN与它们的默认值。下面是一个使用默认设置创建具有间距的两列布局的示例。
+
+代码示例：
+.example-container {
+  @include make-container();
+  // Make sure to define this width after the mixin to override
+  // `width: 100%` generated by `make-container()`
+  width: 800px;}
+.example-row {
+  @include make-row();}
+.example-content-main {
+  @include make-col-ready();
+
+  @include media-breakpoint-up(sm) {
+    @include make-col(6);
+  }
+  @include media-breakpoint-up(lg) {
+    @include make-col(8);
+  }}
+.example-content-secondary {
+  @include make-col-ready();
+
+  @include media-breakpoint-up(sm) {
+    @include make-col(6);
+  }
+  @include media-breakpoint-up(lg) {
+    @include make-col(4);
+  }}
+
+
+
+自定义网格
+使用我们内置的网格Sass变量和映射，可以完全自定义预定义的网格类。更改层数、媒体查询维度和容器宽度，然后重新编译。
+
+Columns and gutters
+可以通过Sass变量修改网格列的数量。$grid columns用于生成每个单独列的宽度（以百分比表示），而$grid gutter width用于设置列的宽度。
+
+代码示例：
+
+$grid-columns: 12 !default;$grid-gutter-width: 30px !default;
+
+网格层
+除了列本身之外，还可以自定义网格层的数量。如果您只需要四个网格层，您可以将$grid断点和$container max widths更新为如下内容：
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 480px,
+  md: 768px,
+  lg: 1024px);
+$container-max-widths: (
+  sm: 420px,
+  md: 720px,
+  lg: 960px);
+对Sass变量或映射进行任何更改时，需要保存更改并重新编译。这样做将为列宽、偏移和排序输出一组全新的预定义网格类。响应可见性实用程序也将更新为使用自定义断点。确保在px中设置网格值（不是rem、em或%）。
+
+布局工具
+
+布局实用程序
+为了更快地进行移动友好和响应式开发，Bootstrap包含许多用于显示、隐藏、对齐和间隔内容的实用程序类。
+
+
+
+更改显示
+使用我们的显示实用程序来响应地切换display属性的公共值。将其与网格系统、内容或组件混合，以便在特定的视口中显示或隐藏它们。
+
+
+
+Flexbox选项
+Bootstrap 4是用flexbox构建的，但并不是每个元素的显示都被更改为display:flex，因为这会添加许多不必要的覆盖，并意外地更改关键浏览器行为。我们的大多数组件都是使用
+flexbox创建的。
+
+
+
+如果需要将display:flex添加到元素中，请使用.d-flex或响应变量之一（例如，d-sm-flex）执行此操作。您将需要这个类或显示值，以允许使用额外的flexbox实用程序来调整大小、对齐、间距等。
+
+
+
+边距和填充
+使用边距和填充间距实用程序控制元素和组件的间距和大小。Bootstrap 4包含一个5级的间隔实用程序，基于1个默认值$spacer变量。选择所有视口的值（例如，mr-3代表margin right:1rem），或选择对目标特定视口的响应变体（例如，mr-md-3代表margin right:1rem，从md断点开始）。
+
+
+
+切换可见性
+当不需要切换显示时，可以使用可见性实用程序切换元素的可见性。不可见的元素仍然会影响页面的布局，但在视觉上对访问者隐藏。
+
+页面内容：
+重新启动
+Reboot是单个文件中特定于元素的CSS更改的集合，
+它启动Bootstrap以提供优雅、一致和简单的基线。
+
+接近
+Reboot是在Normalize的基础上构建的，它只使用元素选择器为许多HTML元素提供了一些固执己见的样式。其他样式仅对类执行。例如，我们重新启动一些<table>样式以获得更简单的基线，然后提供.table、.table bordered等。
+以下是我们在重新启动时选择覆盖内容的指导原则和原因：
+更新一些浏览器默认值以使用rems而不是ems来调整组件间距。
+避免页边空白。垂直边距可能会塌陷，从而产生意外的结果。但更重要的是，单一方向的边距是一个更简单的心理模型。
+为了便于跨设备大小进行缩放，块元素应该使用rems作为边距。
+尽可能使用inherit将与字体相关的属性声明保持在最低限度。
+
+页面默认值
+<html>和<body>元素被更新以提供更好的页面范围默认值。更具体地说：
+对每个元素（包括*：：before和*：：after，to border box）全局设置框大小。这可确保不会由于填充或边框而超出元素的声明宽度。
+未在<html>上声明基本字体大小，但假定为16px（浏览器默认值）。font size:1rem应用于<body>上，通过媒体查询轻松响应类型缩放，同时尊重用户偏好并确保更易访问的方法。
+<body>还设置全局字体系列、行高和文本对齐。稍后，某些表单元素会继承此项以防止字体不一致。
+为了安全起见，<body>具有声明的背景色，默认为。
+
+本机字体堆栈
+默认的web字体（Helvetica Neue、Helvetica和Arial）已在Bootstrap 4中删除，并替换为“原生字体堆栈”，以便在每个设备和操作系统上实现最佳的文本呈现。在这篇扣人心弦的杂志文章中阅读更多关于本机字体堆栈的信息。
+
+代码示例：
+$font-family-sans-serif:
+  // Safari for macOS and iOS (San Francisco)
+  -apple-system,
+  // Chrome < 56 for macOS (San Francisco)
+  BlinkMacSystemFont,
+  // Windows
+  "Segoe UI",
+  // Android
+  Roboto,
+  // Basic web fallback
+  "Helvetica Neue", Arial,
+  // Linux
+  "Noto Sans",
+  // Sans serif fallback
+  sans-serif,
+  // Emoji fonts
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+
+此字体系列应用于<body>并在整个引导过程中自动全局继承。要切换全局字体系列，请更新$font family base并重新编译引导程序。
+
+
+标题和段落
+所有航向要素，如<h1>和<p>都被重置，以去除其顶部的边距。标题下边距为：添加了5个rem，段落下边距为：1个rem，便于间距。
+
+效果示例：
+
+列表
+所有列表-<ul>、<ol>和<dl>-都删除了顶部边距和底部边距：1项。嵌套列表没有底部边距。
+
+
+为了更简单的样式、清晰的层次结构和更好的间距，描述列表更新了页边距。<dd>将左边距重设为0，并在底部添加边距：.5rem.<dt>为粗体。
+
+预格式化文本
+<pre>元素被重置以移除其边距顶部并使用rem单位作为其边距底部。
+表格
+表格稍微调整为样式<caption>，折叠边框，并确保文本始终对齐。对边框、填充等的其他更改随.table类一起提供。
+
+效果图示例：
+
+
+
+
+
+
+
+
+
+
+形式
+重新引导了各种表单元素，以简化基本样式。以下是一些最值得注意的更改：
+<fieldset>s没有边界，内边距或边距，因此它们可以轻松用作单个输入或一组输入的包装。
+<legend>与字段集一样，s也已重新设置样式以显示为各种标题。
+<label>设置为display: inline-block允许margin应用。
+<input>s，<select>s，<textarea>s和<button>s主要由Normalize解决，但是Reboot也删除了它们margin和set line-height: inherit。
+<textarea>将s修改为只能垂直调整大小，因为水平调整大小通常会“破坏”页面布局。
+<button>s和<input>button元素具有cursor: pointerwhen :not(:disabled)。
+这些变化以及更多变化将在下面进行演示。
+
+
+
+元素
+地址
+该<address>元素被更新重置浏览器默认font-style的italic到normal。line-height现在也继承了，并margin-bottom: 1rem已添加。<address>用于显示最接近祖先（或整个工作范围）的联系信息。通过以结尾的行来保留格式<br>。
+Twitter，Inc.
+1355 Market St，Suite 900
+San Francisco，CA 94103
+P：（123）456-7890
+全名
+first.last@example.com
+块引用
+块margin引用的默认值为1em 40px，因此我们将其重置0 0 1rem为与其他元素更一致的名称。
+Lorem存有悲坐阿梅德，consectetur adipiscing ELIT。整体从正面布局。
+来源标题中著名的人
+内联元素
+该<abbr>元件接收基本样式，以使它脱颖而出之间段落文本。
+没有ATRX自由竞争，箭袋宣传。
+摘要
+cursorsummary 的默认值为text，因此我们将其重置pointer为传达可以通过单击进行交互的元素。
+一些细节更多细节
+这里有更多关于细节的细节。
+HTML5 [hidden]属性
+HTML5添加了一个名为的新全局属性[hidden]，其display: none默认样式为。从PureCSS借用一个想法，我们通过使此默认设置得到改进，[hidden] { display: none !important; }以帮助防止display意外覆盖它。虽然[hidden]IE10本身不支持，但CSS中的显式声明可以解决该问题。
+<input type="text" hidden>
+jQuery不兼容
+[hidden]与jQuery $(...).hide()和$(...).show()方法不兼容。因此，我们目前并不特别赞成[hidden]其他用于管理display元素的技术。
+仅仅切换元素的可见性，这意味着其display不被修改和元素还会影响文档的流程，使用的.invisible类来代替。
+版式
+Bootstrap排版的文档和示例，包括全局设置，标题，正文，列表等。
+全局设置
+Bootstrap设置基本的全局显示，版式和链接样式。当需要更多控制时，请查看文本实用程序类。
+使用本机字体堆栈font-family为每个操作系统和设备选择最佳字体。
+对于更具包容性和可访问性的类型比例，我们假定浏览器为默认根目录font-size（通常为16px），以便访问者可以根据需要自定义其浏览器默认值。
+使用$font-family-base，$font-size-base和$line-height-base属性作为我们的印刷基地应用于<body>。
+通过设置全局链接颜色，$link-color并仅在上应用链接下划线:hover。
+使用$body-bg设置background-color上<body>（#fff默认）。
+可以在中找到这些样式_reboot.scss，并在中定义全局变量_variables.scss。确保设置$font-size-base为rem。
+标题
+<h1>通过<h6>提供所有HTML标题。
+标题	例
+<h1></h1>	h1。自举标题
+<h2></h2>	h2。自举标题
+<h3></h3>	h3。自举标题
+<h4></h4>	h4。自举标题
+<h5></h5>	h5。自举标题
+<h6></h6>	h6。自举标题
+
+<h1>h1. Bootstrap heading</h1><h2>h2. Bootstrap heading</h2><h3>h3. Bootstrap heading</h3><h4>h4. Bootstrap heading</h4><h5>h5. Bootstrap heading</h5><h6>h6. Bootstrap heading</h6>
+.h1.h6对于希望与标题的字体样式匹配但不能使用关联的HTML元素的类，也可以使用through 类。
+h1。自举标题
+h2。自举标题
+h3。自举标题
+h4。自举标题
+h5。自举标题
+h6。自举标题
+<p class="h1">h1. Bootstrap heading</p><p class="h2">h2. Bootstrap heading</p><p class="h3">h3. Bootstrap heading</p><p class="h4">h4. Bootstrap heading</p><p class="h5">h5. Bootstrap heading</p><p class="h6">h6. Bootstrap heading</p>
+自定义标题
+使用随附的实用程序类从Bootstrap 3重新创建小的辅助标题文本。
+花式显示标题， 辅助文字褪色
+<h3>
+  Fancy display heading
+  <small class="text-muted">With faded secondary text</small></h3>
+显示标题
+传统的标题元素旨在最有效地处理您页面内容的内容。当您需要一个标题来突出显示时，请考虑使用显示标题 -一种更大，更自觉的标题样式。请记住，这些标题默认情况下不响应，但可以启用响应字体大小。
+显示1
+显示2
+显示3
+显示4
+<h1 class="display-1">Display 1</h1><h1 class="display-2">Display 2</h1><h1 class="display-3">Display 3</h1><h1 class="display-4">Display 4</h1>
+段落
+通过添加使段落突出.lead。
+<p class="lead">
+  Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.</p>
+内联文字元素
+常见的嵌入式HTML5元素的样式。
+您可以使用标记标签 突出 文本。
+此行文本已被视为不再准确。
+这行文字应视为对文档的补充。
+这行文字将显示为下划线
+这行文字应被视为精美印刷品。
+此行显示为粗体文本。
+此行显示为斜体文本。
+<p>You can use the mark tag to <mark>highlight</mark> text.</p><p><del>This line of text is meant to be treated as deleted text.</del></p><p><s>This line of text is meant to be treated as no longer accurate.</s></p><p><ins>This line of text is meant to be treated as an addition to the document.</ins></p><p><u>This line of text will render as underlined</u></p><p><small>This line of text is meant to be treated as fine print.</small></p><p><strong>This line rendered as bold text.</strong></p><p><em>This line rendered as italicized text.</em></p>
+.mark和.small类也可以应用与样式相同的样式<mark>，<small>同时避免使用标签会带来任何不必要的语义影响。
+虽然上面没有显示，可随时使用<b>，并<i>在HTML5。<b>旨在突出显示单词或短语，而又不表达其他重要性，而<i>主要用于语音，技术术语等。
+文字工具
+使用我们的文本实用程序和颜色实用程序更改文本的对齐方式，变换，样式，粗细和颜色。
+缩略语
+HTML <abbr>元素的缩写和首字母缩略词的样式化实现，以显示悬停时的扩展版本。缩写带有默认下划线，并获得帮助光标，以提供有关悬停和辅助技术用户的其他上下文。
+添加.initialism一个略小的字体大小的缩写。
+属性
+的HTML
+<p><abbr title="attribute">attr</abbr></p><p><abbr title="HyperText Markup Language" class="initialism">HTML</abbr></p>
+块引用
+用于引用文档中其他来源的内容块。将<blockquote class="blockquote">任何HTML换成引号。
+<blockquote class="blockquote">
+  <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p></blockquote>
+命名来源
+添加一个<footer class="blockquote-footer">用于标识源。将源工作的名称包装在中<cite>。
+<blockquote class="blockquote">
+  <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+  <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer></blockquote>
+对准
+根据需要使用文本实用程序来更改块引用的对齐方式。
+<blockquote class="blockquote text-center">
+  <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+  <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer></blockquote>
+<blockquote class="blockquote text-right">
+  <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+  <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer></blockquote>
+清单
+无样式
+删除list-style列表项的默认和左页边距（仅适用于立即子级）。这仅适用于直接子级列表项，这意味着您还需要为任何嵌套列表添加类。
+<ul class="list-unstyled">
+  <li>Lorem ipsum dolor sit amet</li>
+  <li>Consectetur adipiscing elit</li>
+  <li>Integer molestie lorem at massa</li>
+  <li>Facilisis in pretium nisl aliquet</li>
+  <li>Nulla volutpat aliquam velit
+    <ul>
+      <li>Phasellus iaculis neque</li>
+      <li>Purus sodales ultricies</li>
+      <li>Vestibulum laoreet porttitor sem</li>
+      <li>Ac tristique libero volutpat at</li>
+    </ul>
+  </li>
+  <li>Faucibus porta lacus fringilla vel</li>
+  <li>Aenean sit amet erat nunc</li>
+  <li>Eget porttitor lorem</li></ul>
+排队
+删除列表的项目符号，并margin结合使用两个类.list-inline和来稍微发光.list-inline-item。
+<ul class="list-inline">
+  <li class="list-inline-item">Lorem ipsum</li>
+  <li class="list-inline-item">Phasellus iaculis</li>
+  <li class="list-inline-item">Nulla volutpat</li></ul>
+说明列表对齐
+通过使用我们的网格系统的预定义类（或语义混合），水平对齐术语和描述。对于较长的术语，可以选择添加一个.text-truncate类，以用省略号截断文本。
+套料
+嵌套定义列表
+<dl class="row">
+  <dt class="col-sm-3">Description lists</dt>
+  <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
+  <dt class="col-sm-3">Euismod</dt>
+  <dd class="col-sm-9">
+    <p>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</p>
+    <p>Donec id elit non mi porta gravida at eget metus.</p>
+  </dd>
+  <dt class="col-sm-3">Malesuada porta</dt>
+  <dd class="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
+  <dt class="col-sm-3 text-truncate">Truncated term is truncated</dt>
+  <dd class="col-sm-9">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
+  <dt class="col-sm-3">Nesting</dt>
+  <dd class="col-sm-9">
+    <dl class="row">
+      <dt class="col-sm-4">Nested definition list</dt>
+      <dd class="col-sm-8">Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc.</dd>
+    </dl>
+  </dd></dl>
+自适应字体大小
+Bootstrap v4.3附带了启用响应字体大小的选项，允许文本在设备和视口大小之间更自然地缩放。可以通过将Sass变量更改为并重新编译Bootstrap 来启用RFS。$enable-responsive-font-sizestrue
+为了支持RFS，我们使用Sass mixin替换我们的常规font-size属性。自适应字体大小将被编译为calc()具有rem和视口单位混合的函数，以启用自适应缩放行为。有关RFS及其配置的更多信息，请参见其GitHub存储库。
+
+代码
+此文档和实例用于展示如何使用 Bootstrap 展示行内代码和多行代码块。
+行内代码
+用 <code> 包裹行内代码片段。请确保转义 HTML 代码中尖括号。
+For example, <section> should be wrapped as inline.
+Copy
+For example, <code>&lt;section&gt;</code> should be wrapped as inline.
+代码块
+用 <pre> 包裹多行代码。再次注意，请确保转义代码中的尖括号，以便正确展示。你还可以选择性地添加 .pre-scrollable 类，实现垂直滚动，并且设定的最大高度为 340px。
+<p>Sample text here...</p>
+<p>And another line of sample text here...</p>
+Copy
+<pre><code>&lt;p&gt;Sample text here...&lt;/p&gt;&lt;p&gt;And another line of sample text here...&lt;/p&gt;</code></pre>
+<var> 变量标签
+使用 <var> 标签标识变量。
+y = mx + b
+Copy
+<var>y</var> = <var>m</var><var>x</var> + <var>b</var>
+用户输入
+<kbd> 标签通常用来标明键盘输入。
+To switch directories, type cd followed by the name of the directory.
+To edit settings, press ctrl + ,
+Copy
+To switch directories, type <kbd>cd</kbd> followed by the name of the directory.<br>
+To edit settings, press <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd>
+
+
+示例输出
+<samp> 标签指示程序的示例输出。
+This text is meant to be treated as sample output from a computer program.
+
+<samp>This text is meant to be treated as sample output from a computer program.</samp>
+
+
+
+响应式图像(Responsive images)
+Bootstrap中的图像通过进行响应.img-fluid。max-width: 100%;并height: auto;应用于图像，以便与父元素缩放
+
+
+图片缩略图(Image thumbnails)
+除了我们的border-radius实用程序之外，您还可以用于.img-thumbnail为图像提供1px的圆形边界外观。
+
+对齐图像(Aligning images)
+使图像与辅助浮动类或文本对齐类对齐。block-电平图像可以使用居中的.mx-auto余量工具类.
+
+
+.图片(Picture)
+如果您使用元素为特定<picture>指定多个<source>元素<img>，请确保将.img-*类添加到<img>而不是<picture>标记中。
+​<picture>
+  <source srcset="..." type="image/svg+xml">
+  <img src="..." class="img-fluid img-thumbnail" alt="...">
+</picture>
+表格（Tables）
+使用最基本的表标记，这是.table基于表的表在Bootstrap中的外观。(1)
+
+
+
+
+
+组件
+<table class="table table-striped">(条纹行 Striped rows)
+
+ <table class="table table-bordered">(表边框 Bordered table)
+
+无边桌(Borderless table )   <table class="table table-borderless">
+
+<table class="table table-hover">(悬浮行 Hoverable rows )
+<table class="table table-sm">(加入.table-sm使切削单元格填充一半表更加紧凑。)
+<tr class="table-primary">...</tr>颜色
+<tr class="bg-primary">...</tr>文本或背景实用程序
+
+组件
+警告框(ALerts)
+alerts（警告框）:警报适用于任何长度的文本，以及可选的关闭按钮。为了获得适当的样式，请使用八个必需的上下文类之一（例如.alert-success）。
+实例：
+A simple primary alert—check it out!   （一个简单的主要警报-检查一下！）
+A simple secondary alert—check it out! （一个简单的主要警报-检查一下！）
+A simple success alert—check it out!  （一个简单的主要警报-检查一下！）
+A simple danger alert—check it out!  （一个简单的主要警报-检查一下！）
+A simple warning alert—check it out! （一个简单的主要警报-检查一下！）
+A simple info alert—check it out!    （一个简单的主要警报-检查一下！）
+A simple light alert—check it out!    （一个简单的主要警报-检查一下！）
+A simple dark alert—check it out!    （一个简单的主要警报-检查一下！）
+Link color（链接颜色）：使用.alert-link实用程序类可在任何警报中快速提供匹配的彩色链接。
+Primary：初级的  secondary：第二的  success：成功  danger：危险  warning：警告  info：信息 light:光 dark：黑暗 
+A simple primary alert with an example link. （初级的）
+A simple secondary alert with an example link. （第二的）
+A simple success alert with an example link. （成功）
+A simple danger alert with an example link. （危险）
+A simple warning alert with an example link. （警告）
+A simple info alert with an example link. （信息）
+A simple light alert with an example link. （光）
+A simple dark alert with an example link. （黑暗的）
+Dismissing（解雇）：添加一个关闭按钮和一个.alert-dismissible类，该类将在警报的右侧添加额外的填充并放置.close按钮。在关闭按钮上，添加data-dismiss="alert"属性，该属性将触发JavaScript功能。确保将<button>元素与元素一起使用，以在所有设备上正常运行。要在关闭警报时为其制作动画，请确保添加.fade和.show类。
+JavaScript行为
+Triggers（扳机）：启用通过JavaScript消除警告的功能。$('.alert').alert()
+方法：
+$().alert()：使警报监听具有data-dismiss=”alert”属性的后代元素的单击事件
+.alert('close')：通过从DOM中删除警报来关闭警报。如果元素上存在.fade和.show类，则警报将在消失之前淡出。
+$().alert('dispose')：销毁元素的警报.
+Methods（大事记）：Bootstrap的警报插件公开了一些事件，可用于警报功能。
+事件	描述
+close.bs.alert	close调用实例方法时，将立即触发此事件。
+closed.bs.alert	警报已关闭时将触发此事件（将等待CSS转换完成）​​
+徽章(badge)
+Example(列)：徽章通过使用相对字体大小和em单位来缩放以匹配直接父元素的大小。
+Contextual variations（上下文差异):添加以下提到的任何修饰符类，以更改徽章的外   观：例：Primary：初级的  secondary：第二的  success：成功  danger：危险  warning：警告  info：信息 light:光 dark：黑暗 
+举例：<span class="badge badge-primary">Primary</span>
+Pill badges (药丸徽章):   使用.badge-pill修饰符类使徽章更圆（具有更大border-radius和更多的水平padding）。如果您错过了v3的徽章，则很有用。
+举例：<span class="badge badge-pill badge-primary">Primary</span>
+Links（链接）.badge-*在<a>元素上使用上下文类可以快速提供具有悬停和焦点状态的可操作徽章。举例：<a href="#" class="badge badge-primary">Primary</a>
+
+按钮（buttons）
+
+
+
+
+
+
+禁用文字换行()
+如果您不希望包装按钮文本，则可以将.text-nowrap类添加到按钮。在Sass中，您可以设置$btn-white-space: nowrap为禁用每个按钮的文本换行。
+按钮标签()
+这些.btn类旨在与<button>元素一起使用。但是，您也可以在<a>或<input>元素上使用这些类（尽管某些浏览器可能会使用略有不同的呈现方式）。
+在<a>用于触发页面内功能（如折叠内容）的元素上使用按钮类时，而不是链接到当前页面内的新页面或新部分时，应为这些链接赋予role="button"适当的含义，以将其目的传达给辅助技术，例如屏幕阅读器。
+
+<a class="btn btn-primary" href="#" role="button">Link</a>
+<button class="btn btn-primary" type="submit">Button</button>
+<input class="btn btn-primary" type="button" value="Input">
+<input class="btn btn-primary" type="submit" value="Submit">
+<input class="btn btn-primary" type="reset" value="Reset">
+轮廓按钮()
+需要一个按钮，但是他们不需要带来沉重的背景颜色吗？将默认修饰符类替换为默认修饰符类，.btn-outline-*以删除任何按钮上的所有背景图像和颜色。
+
+
+
+
+
+
+
+
+
+
+
+尺寸
+
+<button type="button" class="btn btn-primary btn-lg">Large button</button><button type="button" class="btn btn-secondary btn-lg">Large button</button>
+
+<button type="button" class="btn btn-primary btn-sm">Small button</button>
+<button type="button" class="btn btn-secondary btn-sm">Small button</button>
+通过添加来创建块级按钮（跨越父级的整个宽度的按钮）.btn-block。
+
+
+
+
+
+
+工具类
+边框borders
+Border边境 ：使用边框实用程序添加或删除元素的边框。从所有边界中选择，或一次选择一个。
+Additive 添加剂
+Subtractive减法
+
+
+Border color边框颜色
+
+<span class="border border-primary"></span>
+<span class="border border-secondary"></span>
+<span class="border border-success"></span>
+<span class="border border-danger"></span>
+<span class="border border-warning"></span>
+<span class="border border-info"></span>
+<span class="border border-light"></span>
+<span class="border border-dark"></span>
+<span class="border border-white"></span>
+
+Border-radius边境半径：向元素添加类可轻松实现其转角
+
+<img src="..." alt="..." class="rounded">
+<img src="..." alt="..." class="rounded-top">
+<img src="..." alt="..." class="rounded-right">
+<img src="..." alt="..." class="rounded-bottom">
+<img src="..." alt="..." class="rounded-left">
+<img src="..." alt="..." class="rounded-circle">
+<img src="..." alt="..." class="rounded-pill">
+<img src="..." alt="..." class="rounded-0">
+Sizes 尺码：将.rounded-lg或.rounded-sm用于较大或较小的边界半径。
+
+<img src="..." alt="..." class="rounded-sm">
+<img src="..." alt="..." class="rounded-lg">
+
+清除浮动Clearfix（）
+清除浮动Clearfix（）：为父元素添加 .clearfix 可以很容易地清除浮动。还可以作为 mixin 使用。示例：
+<div class=”clearfix”></div>
+（2）// Mixin itself@mixin clearfix() {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }}
+// 作为 mixin 使用.element {
+  @include clearfix;}
+关闭图标
+使用通用的关闭图标来解除模态框（modal）和警告框（alert）等内容。
+务必包含屏幕阅读器可以读取的文本，就像我们所用的 aria-label 标注的文本一样。
+示例：<button type="button" class="close" aria-label="关闭">
+     <span aria-hidden="true">&times;</span></button>
+颜色
+
+<p class="text-primary">.text-primary</p>       
+<p class="text-secondary">.text-secondary</p>    
+<p class="text-success">.text-success</p>        
+<p class="text-danger">.text-danger</p>           
+<p class="text-warning">.text-warning</p>       
+<p class="text-info">.text-info</p>             
+<p class="text-light bg-dark">.text-light</p>
+<p class="text-dark">.text-dark</p>
+<p class="text-body">.text-body</p>
+<p class="text-muted">.text-muted</p>
+<p class="text-white bg-dark">.text-white</p>
+<p class="text-black-50">.text-black-50</p>
+<p class="text-white-50 bg-dark">.text-white-50</p>
+.text-white和.text-muted类除了下划线外没有其他链接样式。
+1.Background color背景颜色 bg背影
+示例：<div class="p-3 mb-2 bg-primary text-white">.bg-primary</div>
+Background gradient背景渐变
+当$enable-gradients设置为时true（默认为false），可以使用.bg-gradient-实用程序类。示例：.bg-gradient-primary
+display属性
+
+
+
+
+
+Hiding elements 隐藏元素
+屏幕尺寸	类
+隐藏在所有	.d-none
+仅在xs上隐藏	.d-none .d-sm-block
+仅在sm上隐藏	.d-sm-none .d-md-block
+仅在md上隐藏	.d-md-none .d-lg-block
+仅在LG隐藏	.d-lg-none .d-xl-block
+仅在xl上隐藏	.d-xl-none
+所有人可见	.d-block
+仅在xs上可见	.d-block .d-sm-none
+仅在sm上可见	.d-none .d-sm-block .d-md-none
+仅在md上可见	.d-none .d-md-block .d-lg-none
+仅在LG上可见	.d-none .d-lg-block .d-xl-none
+仅在xl上可见	.d-none .d-xl-block
+Display in print列印显示：display使用我们的打印显示实用程序类进行打印时，更改元素的值。包括对与display我们的响应.d-*实用程序相同的值的支持。
+.d-print-none
+.d-print-inline
+.d-print-inline-block
+.d-print-block
+.d-print-table
+.d-print-table-row
+.d-print-table-cell
+.d-print-flex
+.d-print-inline-flex
+可以将打印和显示类别组合在一起
+flex 布局
+方向（Direction）
+使用.flex-row设置在水平方向（在浏览器默认值），或者.flex-row-reverse开始从相对侧上的水平方向上。
+
+<div class="d-flex flex-row bd-highlight mb-3">
+
+  <div class="p-2 bd-highlight">Flex item 1</div>
+  <div class="p-2 bd-highlight">Flex item 2</div>
+  <div class="p-2 bd-highlight">Flex item 3</div></div>
+<div class="d-flex flex-row-reverse bd-highlight">
+  <div class="p-2 bd-highlight">Flex item 1</div>
+  <div class="p-2 bd-highlight">Flex item 2</div>
+  <div class="p-2 bd-highlight">Flex item 3</div>
+</div>
+使用.flex-column设定垂直方向，或者.flex-column-reverse 开始从相对侧上的垂直方向。         
+
+还存在响应式变体flex-direction。
+
+
+
+
+
+
+
+
+
+
+证明内容合理（Justify content）
+justify-content在flexbox容器上使用实用程序来更改弹性项目在主轴上的对齐方式（要开始的x轴，如果是，y轴flex-direction: column）。选择start（浏览器的默认）， ，end，center，between或around。
+
+
+
+还存在响应式变体justify-content。
+
+
+对齐项目（Align items）
+align-items在flexbox容器上使用实用程序来更改弹性项在横轴（要开始的y
+
+轴，如果是，x轴flex-direction: column）上的对齐方式。选择start，end，center，baseline，或者stretch（默认浏览器）。
+ 
+还存在响应式变体align-items
+
+
+
+自我调整（Align self）
+align-self在flexbox项上使用实用程序可分别更改其在横轴上的对齐方式（开始时为y轴，如果为，则为x轴flex-direction: column）。选择相同的选项align-items：start，end，center，baseline，或者stretch（默认浏览器）
+
+
+还存在响应式变体align-self。
+填(Fill)
+.flex-fill在一系列同级元素上使用类，以将它们强制变为等于其内容的宽度（如果其内容未超过其边框，则等于宽度），同时占用所有可用的水平空间。
+
+
+<div class="d-flex bd-highlight">
+  <div class="p-2 flex-fill bd-highlight">Flex item with a lot content</div>
+  <div class="p-2 flex-fill bd-highlight">Flex item</div>
+  <div class="p-2 flex-fill bd-highlight">Flex item</div>
+</div>
+还存在响应式变体flex-fill。
+
+成长与收缩(Grow and shrink)
+使用.flex-grow-*实用程序来切换弹性项目的增长能力以填充可用空间。在下面的示例中，.flex-grow-1元素使用其可能的所有可用空间，同时为其余两个flex项目留出必要的空间.<div class="d-flex bd-highlight">
+  <div class="p-2 flex-grow-1 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Third flex item</div>
+</div>
+
+flex-shrink-*如有必要，使用实用程序切换弹性项目的收缩能力。在下面的示例中，带有的第二个flex项目.flex-shrink-1被迫将其内容包装到新行中，“缩小”以为带有的上一个flex项目留出更多空间.w-100.
+
+<div class="d-flex bd-highlight">
+  <div class="p-2 w-100 bd-highlight">Flex item</div>
+  <div class="p-2 flex-shrink-1 bd-highlight">Flex item</div></div>
+还存在flex-grow和的响应变化flex-shrink。
+
+
+
+自动边距(Auto margins)
+当您将Flex对齐方式与自动边距混合使用时，Flexbox可以做一些很棒的事情。下面显示了三个通过自动页边距控制弹性项目的示例：默认（无自动页边距），向右推两个项目（.mr-auto）和向左推两个项目（.ml-auto）。
+
+<div class="d-flex bd-highlight mb-3">
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div></div><div class="d-flex bd-highlight mb-3">
+  <div class="mr-auto p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div></div><div class="d-flex bd-highlight mb-3">
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="ml-auto p-2 bd-highlight">Flex item</div></div>
+对齐项目(With align-items)
+垂直地移动混合一个挠性项到容器的顶部或底部align-items，flex-direction: column和margin-top: auto或margin-bottom: auto。
+
+
+
+包裹(Wrap)
+更改弹性项目在弹性容器中的包装方式。从完全不换行（浏览器默认）中选择.flex-nowrap，使用进行换行.flex-wrap，或使用进行反向换行.flex-wrap-reverse。
+
+                   
+
+还存在响应式变体flex-wrap。
+
+
+
+订购(Order)
+使用一些实用程序来更改特定弹性项目的视觉顺序order。我们仅提供用于使项目成为第一项或最后一项的选项，以及提供重置以使用DOM顺序的选项。与order采用任何整数值（例如5）一样，为所需的任何其他值添加自定义CSS。
+<div class="d-flex flex-nowrap bd-highlight">
+  <div class="order-3 p-2 bd-highlight">First flex item</div>
+  <div class="order-2 p-2 bd-highlight">Second flex item</div>
+  <div class="order-1 p-2 bd-highlight">Third flex item</div>
+</div>
+还存在响应式变体order
+
+
+
+
+
+
+
+
+
+
+
+
+
+对齐内容(Align content)
+使用align-content上Flexbox的容器公用事业柔性物品排列在一起的横轴。选择start（浏览器的默认）， ，end，center，between，around或stretch。为了演示这些实用程序，我们强制实施flex-wrap: wrap并增加了弹性项目的数量。
+当心！此属性对弹性项目的单行无效。
+
+.
+
+
+
+
+还存在响应式变体align-content。
+
+
+
+
+
+
+------------浮动(Float)
+班级(Classes)
+用一个类切换一个浮点数：
+<div class="float-left">Float left on all viewport sizes</div><br><div class="float-right">Float right on all viewport sizes</div><br><div class="float-none">Don't float on all viewport sizes</div>
+混合蛋白（Mixins）
+或通过Sass mixin：
+反应灵敏（Responsive）
+每个float值还存在响应性变化。
+
+
+这是所有支持类；
+
+
+
+
+
+图像替换
+图像替换:用图像替换类交换背景图像的文本。
+警告:从text-hide()v4.1开始，不推荐使用class和mixin。它将在v5中完全删除。
+利用.text-hide类或混合来帮助用背景图像替换元素的文本内容。
+<h1 class="text-hide">Custom heading</h1>
+// Usage as a mixin.heading {
+  @include text-hide;}
+使用.text-hide该类来维护标题标签的可访问性和SEO好处，但希望使用background-image代替文本。
+溢出（Overflow）
+
+定位（position）
+共同价值观(Common values)
+快速定位类虽然没有响应，但可用。
+<div class="position-static">...</div>
+<div class="position-relative">...</div>
+<div class="position-absolute">...</div>
+<div class="position-fixed">...</div>
+<div class="position-sticky">...</div>
+固定顶(Fixed top)
+从一个边缘到另一个边缘将元素定位在视口的顶部。 
+<div class="fixed-top">...</div>
+固定底(Fixed bottom)
+从一个边缘到另一个边缘将元素定位在视口的底部。
+<div class="fixed-bottom">...</div>
+粘顶(Sticky top)
+将元素从一个边缘到另一个边缘放置在视口的顶部，但仅在滚动经过该元素之后才可以。该.sticky-top实用程序使用CSS position: sticky，并非所有浏览器都完全支持CSS 。
+
+IE11和IE10将呈现position: sticky为position: relative。这样，我们将样式包装在@supports查询中，从而将粘性限制为仅可以正确呈现样式的浏览器。
+<div class="sticky-top">...</div>
+
+屏幕阅读器(Screen readers)
+使用屏幕阅读器实用程序隐藏除屏幕阅读器以外的所有设备上的元素。
+隐藏所有设备的元素，除了屏幕阅读器使用.sr-only。结合.sr-only使用.sr-only-focusable可在元素集中时再次显示该元素.也可以用作mixin。
+<a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+// Usage as a mixin.skip-navigation {
+  @include sr-only;
+  @include sr-only-focusable;}
+
+阴影(shadows)
+
+
+
+
+
+
+尺寸（Sizing）
+(2)
+
+
+
+
+您还可以根据需要使用max-width: 100%;和max-height: 100%;实用程序
+
+<img src="..." class="mw-100" alt="...">
+
+<div style="height: 100px; background-color: rgba(255,0,0,0.1);">
+  <div class="mh-100" style="width: 100px; height: 200px; background-color: rgba(0,0,255,0.1);">Max-height 100%</div>
+</div>
+相对于视口(Relative to the viewport)
+您还可以使用实用程序设置相对于视口的宽度和高度。
+<div class="min-vw-100">Min-width 100vw</div>
+<div class="min-vh-100">Min-height 100vh</div>
+<div class="vw-100">Width 100vw</div>
+<div class="vh-100">Height 100vh</div>
+间隔(spacing)
+符号（Notation）
+类是使用的格式命名{property}{sides}-{size}为xs和{property}{sides}-{breakpoint}-{size}为sm，md，lg，和xl。
+其中财产是以下之一：
+m -对于设置的课程 margin
+p -对于设置的课程 padding
+其中边是以下之一：
+t-对于设置margin-top或padding-top
+b-对于设置margin-bottom或padding-bottom
+l-对于设置margin-left或padding-left
+r-对于设置margin-right或padding-right
+x-对于同时设置*-left和*-right
+y-对于同时设置*-top和*-bottom
+空白-用于在元素的所有4侧设置a margin或padding4的类
+其中大小是以下之一：
+0-对于消除margin或padding通过将其设置为的类0
+1- （默认情况下）的类时，设置margin或padding以$spacer * .25
+2- （默认情况下）的类时，设置margin或padding以$spacer * .5
+3- （默认情况下）的类时，设置margin或padding以$spacer
+4- （默认情况下）的类时，设置margin或padding以$spacer * 1.5
+5- （默认情况下）的类时，设置margin或padding以$spacer * 3
+auto-对于将设为margin自动的类
+水平居中(Horizontal centering)
+Bootstrap还包括一个.mx-auto类，该类用于通过将水平边距设置为来将定宽块级别内容（即具有display: block和一width组的内容）水平居中auto
+
+负边距(Negative margin)
+在CSS中，margin属性可以使用负值（padding不能）。作为4.2，我们添加负余量的实用程序上面列出的每个非零整数尺寸（例如，1，2，3，4，5）。这些实用程序是自定义跨断点的网格列装订线的理想选择。
+语法与默认的正余量实用程序几乎相同，但是n在请求的大小之前增加了。这是与以下示例相反的示例类.mt-1：
+.mt-n1 {
+  margin-top: -0.25rem !important;}
+这是在中点（md）和更高断点处自定义Bootstrap网格的示例。我们增加了对的.col填充，.px-md-5然后抵消了.mx-md-n5对父的填充.row。
+
+<div class="row mx-md-n5">
+  <div class="col px-md-5"><div class="p-3 border bg-light">Custom column padding</div></div>
+  <div class="col px-md-5"><div class="p-3 border bg-light">Custom column padding</div></div></div>
+文本(text)文本对齐
+使用文本对齐类可以轻松地将文本重新对齐到组件：text-justify
+
